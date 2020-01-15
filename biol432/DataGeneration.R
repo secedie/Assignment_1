@@ -8,3 +8,17 @@ Species <- c("Loxodonta africana",
              "Elephas maximus indicus",
              "Delphinapterus leucas",
              "Thunnus obesus")
+
+Limb.Width <- abs(rnorm(10, 10, 10))
+
+unitsW <- ifelse(rbinom(10,1,0.5), "mm", "cm")
+
+Limb.Length <- abs(rnorm(10,100,100))
+
+unitsL <- ifelse(rbinom(10,1,0.5), "mm", "cm")
+
+MyData <- data.frame(Species,
+                     Limb.Width,
+                     unitsW,
+                     Limb.Length)
+
