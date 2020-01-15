@@ -1,0 +1,10 @@
+Species <- c("Loxodonta africana",
+             "Lycaon pictus",
+             "Thunnus alalunga",
+             "Inia geoffrensis",
+             "Panthera pardus orientalis",
+             "Vulpes lagopus",
+             "Canis lupus arctos",
+             "Elephas maximus indicus",
+             "Delphinapterus leucas",
+             "Thunnus obesus")
