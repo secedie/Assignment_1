@@ -1,11 +1,11 @@
-"","Species","Limb.Width","unitsW","Limb.Length"
-"1","Loxodonta africana",15.0590691860095,"cm",139.965674723257
-"2","Lycaon pictus",2.10607433616908,"cm",99.4504736568426
-"3","Thunnus alalunga",6.88827965622944,"cm",11.9497258115662
-"4","Inia geoffrensis",18.6961530519602,"cm",273.911456833413
-"5","Panthera pardus orientalis",7.43463094800786,"mm",14.3863338473388
-"6","Vulpes lagopus",20.8090976974822,"cm",38.4061419062553
-"7","Canis lupus arctos",15.2706534315306,"mm",2.7242408746627
-"8","Elephas maximus indicus",5.21496717090871,"cm",28.1645176446405
-"9","Delphinapterus leucas",18.8212492203921,"cm",68.4887949832899
-"10","Thunnus obesus",13.8877647647836,"mm",108.947315221289
+"","Species","Limb.Width","unitsW","Limb.Length","unitsL"
+"1","Loxodonta africana",8.04245606979024,"cm",65.0513945649283,"mm"
+"2","Lycaon pictus",29.2139209098503,"cm",166.662365430745,"mm"
+"3","Thunnus alalunga",12.71723151975,"cm",65.2078929671132,"cm"
+"4","Inia geoffrensis",5.23783764306963,"cm",198.962622448686,"mm"
+"5","Panthera pardus orientalis",23.2878093728925,"mm",166.712747032992,"cm"
+"6","Vulpes lagopus",10.8574317301612,"mm",76.3438800361773,"cm"
+"7","Canis lupus arctos",10.4921546359697,"mm",257.067477597062,"mm"
+"8","Elephas maximus indicus",16.0147733717015,"cm",126.315412005292,"mm"
+"9","Delphinapterus leucas",3.22166318916043,"mm",32.053980035935,"cm"
+"10","Thunnus obesus",22.5601684793545,"mm",111.179654658004,"mm"
