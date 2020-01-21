@@ -1,0 +1,127 @@
+---
+title: "Data Analysis (Assignment 2)"
+author: "Shannon Edie"
+date: "January 21, 2020"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, warnings=FALSE, message=FALSE)
+
+library(ggplot2)
+
+```
+
+# Introduction and data cleansing
+
+This project is a continuation of the BIOL 432 Assignment 1. In the first assignment, I wrote code to generate a data frame that described charactersitics of several species. Within this data set, I included ten randomly-selected species names. For each species, I generated a number to represent the width of their limb from a $N(10,10)$ distribution, and a number to represent the length of their limb from a $N(100,100)$ distribution. For each of these dimensions, I randomly assigned the units as "cm" or "mm" with probability 0.5. 
+
+From this data, I now want to do some basic data manipulation, cleansing, and analyses. First, I scaled the limb length and limb width dimensions so that all values were recorded in centimeters. Then, I calculated the volume of the limb using the volume formula for a cylinder:
+$$V=\pi r^2h$$
+where r is radius (half the limb width) and h is height (the limb length).
+
+```{r change.units}
+
+MData <- read.csv("Data/measurements.csv", row.names=1)
+
+colnames(MData) <- c("Spp", "Lwd", "Wun", "Lln", "Lun")
+
+# Convert measurements to same units
+MData$Lwd <- MData$Lwd * ifelse(MData$Wun == "cm", 1, 0.1)
+MData$Lln <- MData$Lln * ifelse(MData$Lun == "cm", 1, 0.1)
+
+# Update units vectors accordingly
+MData$Lun <- "cm"
+MData$Wun <- "cm"
+
+# Calculate volume
+MData$Volume <- pi * (MData$Lwd / 2)^2 * MData$Lln
+
+```
+
+# Generating plots
+
+After standardizing all of my units to centimeters and creating a volume parameter, I then began to analyze the data visually. First, I looked at a plot of limb width versus length of the species (Figure \ref{width.length.plot}). Unsurprisingly, very few species had both a large limb width and length. While this is unrealistic in real data (generally, limb width and length are positively correlated), since we generated these data from two univariate normal distributions, this negative correlation we are observing makes sense.
+
+```{r width.length.plot, fig.cap="\\label{width.length.plot} A plot of the width versus length of the limbs of ten separate species, according to my generated dataset. The respective species for each point is included in the legend."}
+
+t.dat <- data.frame("Species"=paste(1:10, "=", MData$Spp))
+
+# Plot the width and length
+ggplot(data=MData, aes(x=Lwd, y=Lln)) +
+  geom_point(size=3) +
+  xlab("Limb Width (cm)") +
+  ylab("Limb Length (cm)") +
+  xlim(c(0,37)) +
+  ggtitle("Limb dimensions for various species") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  geom_text(aes(label=c(1:10), fontface=3), hjust=-0.1, vjust=-.7, size=3.5) +
+  
+  geom_text(data = t.dat, aes(label=Species, colour=Species, fontface=3), alpha=0, x=1, y=1)
+
+
+
+```
+
+Then, I looked at the limb width versus length of the species with above-average limb volumes (Figure \ref{width.length.plot.above.avg}). I also looked at the limb volume of the species with below-average (below-mean) limb volumes (Figure \ref{table.spp.vol}). 
+
+```{r width.length.plot.above.avg, fig.cap="\\label{width.length.plot.above.avg} Limb width versus limb length for species from the dataset with an above-average (above-mean) limb volume."}
+
+# Create a new data frame including only the rows that have an above-average volume
+AboveAvg <- MData[which(MData$Volume > mean(MData$Volume)),]
+
+t.dat.above.avg <- data.frame("Species"=paste(1:3, "=", AboveAvg$Spp))
+
+# Plot the width and length
+ggplot(data=AboveAvg, aes(x=Lwd, y=Lln)) +
+  geom_point(size=3) +
+  xlab("Limb Width (cm)") +
+  ylab("Limb Length (cm)") +
+  xlim(c(0,37)) +
+  ggtitle("Limb dimensions for various species") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  geom_text(aes(label=c(1:3), fontface=3), hjust=-0.1, vjust=-.7, size=3.5) +
+  geom_text(data = t.dat.above.avg, aes(label=Species, colour=Species, fontface=3), alpha=0, x=1, y=1)
+
+```
+
+```{r table.spp.vol}
+
+BelowAvg <- MData[which(MData$Volume < mean(MData$Volume)),]
+
+# Create a table including the species and volume columns, and add ** 
+# around the species so it will show up italicized in a table
+spp.vol.tab <- BelowAvg[,which(colnames(BelowAvg) %in% c("Spp", "Volume"))] 
+spp.vol.tab$Spp <- paste0("*", spp.vol.tab$Spp, "*")
+
+library(knitr)
+kable(spp.vol.tab, col.names=c("Species", "Limb volume"), caption="\\label{table.spp.vol} Limb volume for each species, calculated by using the limb width as radius and limb length as height in the formula for volume of a cylinder.", row.names=FALSE)
+
+```
+
+# Group analysis
+
+Following graphical analyais, I generated a new column for my dataset by randomly assigning each species to a group (A or B) with probability 0.5. I then looked at the mean and standard deviation of the limb width, length, and volume within both groups. I also included the size of the group (Table \ref{group.and.summarize}).
+
+
+```{r group.and.summarize}
+
+# Make a column specifying a new group
+MData$Grp <- ifelse(runif(10,0,1)<0.5, "A", "B")
+
+library(dplyr)
+MData.grp <- group_by(MData, Grp)
+MData.grp.summ <- summarize(MData.grp,
+                            n=length(Lln),
+                            L.Avg=mean(Lln), L.SD=sd(Lln),
+                            W.Avg=mean(Lwd), W.SD=sd(Lwd),
+                            V.Avg=mean(Volume), V.SD=sd(Volume))
+
+kable(MData.grp.summ, col.names=c("group", "sample size", "mean(length)", "sd(length)", "mean(width)", "sd(width)", "mean(volume)", "sd(volume)"), caption="\\label{group.and.summarize} Summary statistics for the limb length, width, and volume for ten species, grouped into two separate ficticious groups, A and B. sd() indicates the standard deviation of the respective dimension, whereas mean() indicates the mean for the respective dimension. Sample size indicates the number of species within each group.")
+
+```
