@@ -196,7 +196,7 @@ $(document).ready(function () {
 
 <div id="introduction-and-data-cleansing" class="section level1">
 <h1>Introduction and data cleansing</h1>
-<p>This project is a continuation of the BIOL 432 Assignment 1. In the first assignment, I wrote code to generate a data frame that described charactersitics of several species. Within this data set, I included ten randomly-selected species names. For each species, I generated a number to represent the width of their limb from a <span class="math inline">\(N(10,10)\)</span> distribution, and a number to represent the length of their limb from a <span class="math inline">\(N(100,100)\)</span> distribution. For each of these dimensions, I randomly assigned the units as “cm” or “mm” with probability 0.5.</p>
+<p>This project is a continuation of the BIOL 432 Assignment 1. In the first assignment, I wrote code to generate a data frame that described characteristics of several species. Within this data set, I included ten randomly-selected species names. For each species, I generated a number to represent the width of their limb from a <span class="math inline">\(N(10,10)\)</span> distribution, and a number to represent the length of their limb from a <span class="math inline">\(N(100,100)\)</span> distribution. For each of these dimensions, I randomly assigned the units as “cm” or “mm” with probability 0.5.</p>
 <p>From this data, I now want to do some basic data manipulation, cleansing, and analyses. First, I scaled the limb length and limb width dimensions so that all values were recorded in centimeters. Then, I calculated the volume of the limb using the volume formula for a cylinder: <span class="math display">\[V=\pi r^2h\]</span> where r is radius (half the limb width) and h is height (the limb length).</p>
 <pre class="r"><code>MData &lt;- read.csv(&quot;Data/measurements.csv&quot;, row.names=1)
 
@@ -310,7 +310,7 @@ kable(spp.vol.tab, col.names=c(&quot;Species&quot;, &quot;Limb volume&quot;), ca
 </div>
 <div id="group-analysis" class="section level1">
 <h1>Group analysis</h1>
-<p>Following graphical analyais, I generated a new column for my dataset by randomly assigning each species to a group (A or B) with probability 0.5. I then looked at the mean and standard deviation of the limb width, length, and volume within both groups. I also included the size of the group (Table ).</p>
+<p>Following graphical analysis, I generated a new column for my data set by randomly assigning each species to a group (A or B) with probability 0.5. I then looked at the mean and standard deviation of the limb width, length, and volume within both groups. I also included the size of the group (Table ).</p>
 <pre class="r"><code># Make a column specifying a new group
 MData$Grp &lt;- ifelse(runif(10,0,1)&lt;0.5, &quot;A&quot;, &quot;B&quot;)
 
@@ -341,26 +341,30 @@ kable(MData.grp.summ, col.names=c(&quot;group&quot;, &quot;sample size&quot;, &q
 <tbody>
 <tr class="odd">
 <td align="left">A</td>
-<td align="right">7</td>
-<td align="right">24.12397</td>
-<td align="right">23.85571</td>
-<td align="right">8.985709</td>
-<td align="right">10.36187</td>
-<td align="right">2087.476</td>
-<td align="right">4104.297</td>
+<td align="right">4</td>
+<td align="right">24.87431</td>
+<td align="right">27.20805</td>
+<td align="right">13.057406</td>
+<td align="right">11.589772</td>
+<td align="right">4957.2641</td>
+<td align="right">5633.748</td>
 </tr>
 <tr class="even">
 <td align="left">B</td>
-<td align="right">3</td>
-<td align="right">87.99154</td>
-<td align="right">70.16101</td>
-<td align="right">5.122726</td>
-<td align="right">6.65312</td>
-<td align="right">2998.490</td>
-<td align="right">4589.966</td>
+<td align="right">6</td>
+<td align="right">55.55753</td>
+<td align="right">58.89891</td>
+<td align="right">4.339753</td>
+<td align="right">5.978526</td>
+<td align="right">629.7905</td>
+<td align="right">978.545</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="github-push" class="section level1">
+<h1>Github push</h1>
+<p>I also uploaded my current project to Github: <a href="https://github.com/secedie/Assignment_1" class="uri">https://github.com/secedie/Assignment_1</a></p>
 </div>
 
 

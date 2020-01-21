@@ -17,7 +17,7 @@ library(ggplot2)
 
 # Introduction and data cleansing
 
-This project is a continuation of the BIOL 432 Assignment 1. In the first assignment, I wrote code to generate a data frame that described charactersitics of several species. Within this data set, I included ten randomly-selected species names. For each species, I generated a number to represent the width of their limb from a $N(10,10)$ distribution, and a number to represent the length of their limb from a $N(100,100)$ distribution. For each of these dimensions, I randomly assigned the units as "cm" or "mm" with probability 0.5. 
+This project is a continuation of the BIOL 432 Assignment 1. In the first assignment, I wrote code to generate a data frame that described characteristics of several species. Within this data set, I included ten randomly-selected species names. For each species, I generated a number to represent the width of their limb from a $N(10,10)$ distribution, and a number to represent the length of their limb from a $N(100,100)$ distribution. For each of these dimensions, I randomly assigned the units as "cm" or "mm" with probability 0.5. 
 
 From this data, I now want to do some basic data manipulation, cleansing, and analyses. First, I scaled the limb length and limb width dimensions so that all values were recorded in centimeters. Then, I calculated the volume of the limb using the volume formula for a cylinder:
 $$V=\pi r^2h$$
@@ -106,7 +106,7 @@ kable(spp.vol.tab, col.names=c("Species", "Limb volume"), caption="\\label{table
 
 # Group analysis
 
-Following graphical analyais, I generated a new column for my dataset by randomly assigning each species to a group (A or B) with probability 0.5. I then looked at the mean and standard deviation of the limb width, length, and volume within both groups. I also included the size of the group (Table \ref{group.and.summarize}).
+Following graphical analysis, I generated a new column for my data set by randomly assigning each species to a group (A or B) with probability 0.5. I then looked at the mean and standard deviation of the limb width, length, and volume within both groups. I also included the size of the group (Table \ref{group.and.summarize}).
 
 
 ```{r group.and.summarize}
@@ -125,3 +125,7 @@ MData.grp.summ <- summarize(MData.grp,
 kable(MData.grp.summ, col.names=c("group", "sample size", "mean(length)", "sd(length)", "mean(width)", "sd(width)", "mean(volume)", "sd(volume)"), caption="\\label{group.and.summarize} Summary statistics for the limb length, width, and volume for ten species, grouped into two separate ficticious groups, A and B. sd() indicates the standard deviation of the respective dimension, whereas mean() indicates the mean for the respective dimension. Sample size indicates the number of species within each group.")
 
 ```
+
+# Github push
+
+I also uploaded my current project to Github: https://github.com/secedie/Assignment_1
