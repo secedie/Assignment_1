@@ -1,0 +1,35 @@
+---
+title: "Regex"
+author: "Shannon Edie"
+date: "January 28, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment 4
+
+First I read the dataset in using read.csv.
+
+```{r}
+
+MData <- read.csv("Data/measurements.csv")
+
+```
+
+Then, I used the dplyr package to create a new column for the dataset called "Sp", which contained only the first letter of the genus followed by a period and the species.
+
+```{r}
+
+library(dplyr)
+
+MData <- mutate(MData, Sp= sub("\\B.+ ", ". ", Species))
+
+gsub()
+
+MData.2 <- select(MData, Sp, Limb.Width, unitsW, Limb.Length, unitsL)
+
+```
+
