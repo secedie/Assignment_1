@@ -2,7 +2,9 @@
 title: "Regex"
 author: "Shannon Edie"
 date: "January 28, 2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -27,7 +29,20 @@ library(dplyr)
 
 MData <- mutate(MData, Sp= sub("\\B.+ ", ". ", Species))
 
+library(knitr)
+kable(MData, caption="\\label{mdata} Measurements data with both the species names and the abbreviated species names.")
+
+
+```
+
+I then created a table containing only the Sp column and not the Species column (I assumed that we were to keep all of the other columns, but if not please refer to the commented-out code).
+
+```{r}
+
 MData.2 <- select(MData, Sp, Limb.Width, unitsW, Limb.Length, unitsL)
+
+kable(MData.2, caption="\\label{mdata.2} Measurements data with only the abbreviated species names.")
+#MData.2 <- select(MData, Sp)
 
 ```
 
