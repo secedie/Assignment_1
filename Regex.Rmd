@@ -27,8 +27,6 @@ library(dplyr)
 
 MData <- mutate(MData, Sp= sub("\\B.+ ", ". ", Species))
 
-gsub()
-
 MData.2 <- select(MData, Sp, Limb.Width, unitsW, Limb.Length, unitsL)
 
 ```
